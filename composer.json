@@ -52,6 +52,7 @@
         ]
     },
     "scripts": {
+        "keygen": "php artisan key:generate",
         "test": "vendor/bin/phpunit"
     },
     "config": {
