@@ -52,7 +52,7 @@
         ]
     },
     "scripts": {
-        "test": "phpunit tests/ExampleTest.php"
+        "test": "vendor/bin/phpunit"
     },
     "config": {
         "preferred-install": "dist"
