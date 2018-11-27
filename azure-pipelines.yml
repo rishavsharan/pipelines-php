@@ -18,7 +18,7 @@ steps:
     sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
     php -version
   displayName: 'Use PHP version $(phpVersion)'
-
+  
 - script: composer install --no-interaction --prefer-dist
   displayName: 'composer install'
 
@@ -28,5 +28,15 @@ steps:
 - script: php artisan key:generate
   displayName: 'Generate 32 bit encryption key for the app'
 
-- script: vendor/bin/phpunit
+- script: ./vendor/bin/phpunit --log-junit ./reports/junit.xml --coverage-html ./reports --coverage-xml ./reports
   displayName: 'Run tests with composer using phpunit'
+
+- task: PublishTestResults@2
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: ./reports/junit.xml
+
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: 'Junit XML'
+    targetPath: './reports/'
